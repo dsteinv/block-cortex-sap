@@ -9,7 +9,7 @@ constant: GCP_PROJECT {
 }
 
 constant: REPORTING_DATASET {
-  value: "cortex"
+  value: "REPORTING"
   export: override_required
 }
 
