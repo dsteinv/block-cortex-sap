@@ -36,9 +36,9 @@ explore: profit_and_loss {
 
   always_filter: {filters:[profit_and_loss.glhierarchy: "",profit_and_loss.company_text: "",profit_and_loss.target_currency_tcurr: ""]}
 
-  sql_always_where: ${profit_and_loss.client_mandt}='@{CLIENT}'
+  sql_always_where: ${profit_and_loss.client_mandt}='@{CLIENT}' ;;
 
-          ;;
+  required_access_grants: [can_view_sap]
 
   join: language_map_sdt {
     type: inner

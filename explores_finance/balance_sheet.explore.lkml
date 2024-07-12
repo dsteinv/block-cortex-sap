@@ -29,7 +29,7 @@ include: "/views/balance_sheet_navigation_ext.view"
 
 explore: balance_sheet {
   always_join: [language_map_sdt]
-
+  required_access_grants: [can_view_sap]
   always_filter: {filters:[balance_sheet.hierarchy_name: "",balance_sheet.chart_of_accounts: "",balance_sheet.company_text: "",balance_sheet.target_currency_tcurr: ""]}
 
   # always filter on:

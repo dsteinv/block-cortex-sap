@@ -17,8 +17,14 @@ named_value_format: Greek_Number_Format {
   value_format: "[>=1000000000]0.0,,,\"B\";[>=1000000]0.0,,\"M\";[>=1000]0.0,\"K\";0.0"
 }
 
+access_grant: can_view_sap {
+  user_attribute: sap_test
+  allowed_values: ["yes"]
+}
+
 explore: data_intelligence_ar {
 sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
+  required_access_grants: [can_view_sap]
   join: currency_conversion_new {
     type: left_outer
     relationship: one_to_many
@@ -32,6 +38,7 @@ sql_always_where: ${Client_ID} = "@{CLIENT}" ;;
 }
 
 explore: sales_orders {
+  required_access_grants: [can_view_sap]
 
   join: language_map {
     fields: []
@@ -176,8 +183,9 @@ explore: sales_orders {
 
 explore: vendor_performance {
   sql_always_where: ${vendor_performance.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
-    and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}'
-    ;;
+    and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}';;
+
+  required_access_grants: [can_view_sap]
 
   join: language_map {
     fields: []
@@ -200,31 +208,35 @@ explore: vendor_performance {
 
 explore: days_payable_outstanding_v2 {
   sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+  required_access_grants: [can_view_sap]
 }
 
 
 explore: accounts_payable_v2 {
 
   sql_always_where: ${accounts_payable_v2.client_mandt} =  '{{ _user_attributes['client_id_rep'] }}';;
+  required_access_grants: [can_view_sap]
 }
 
 explore: cash_discount_utilization {
   sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}';;
+  required_access_grants: [can_view_sap]
 }
 
 
 explore: accounts_payable_overview_v2 {
-
   sql_always_where: ${accounts_payable_overview_v2.client_mandt} =  '{{ _user_attributes['client_id_rep'] }}' ;;
+  required_access_grants: [can_view_sap]
 }
 
 explore: accounts_payable_turnover_v2 {
-
   sql_always_where: ${accounts_payable_turnover_v2.client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+  required_access_grants: [can_view_sap]
 }
 
 explore: materials_valuation_v2 {
   sql_always_where: ${client_mandt} = '{{ _user_attributes['client_id_rep'] }}' ;;
+  required_access_grants: [can_view_sap]
 }
 
 ########################################### Finance Dashboards End ########################################################################
@@ -235,6 +247,7 @@ explore: materials_valuation_v2 {
 explore: inventory_metrics_overview {
   sql_always_where: ${inventory_metrics_overview.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
   and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}';;
+  required_access_grants: [can_view_sap]
 
   join: inventory_by_plant {
     type: left_outer
@@ -255,8 +268,8 @@ explore: inventory_metrics_overview {
 
 explore: inventory_by_plant {
     sql_always_where: ${inventory_by_plant.client_mandt} = '{{ _user_attributes['client_id_rep'] }}'
-        and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}'
-    ;;
+        and ${language_map.looker_locale}='{{ _user_attributes['locale'] }}';;
+    required_access_grants: [can_view_sap]
 
   join: language_map {
     fields: []
